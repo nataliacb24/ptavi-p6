@@ -30,7 +30,7 @@ class EchoHandler(socketserver.DatagramRequestHandler):
                 self.wfile.write(b"SIP/2.0 180 Ring" +  b"\r\n")
                 self.wfile.write(b"SIP/2.0 200 OK" +  b"\r\n")
             elif metodo == "ACK":
-                aEjecutar = 'mp32rtp -i' + IP + '-p 23032 < ' + fichero_audio
+                aEjecutar = "mp32rtp -i " + IP + " -p 23032 < " + fichero_audio
                 print("Vamos a ejecutar", aEjecutar)
                 os.system(aEjecutar)
             elif metodo == "BYE":
@@ -45,8 +45,11 @@ if __name__ == "__main__":
         IP = sys.argv[1]
         Port_serv = int(sys.argv[2])
         fichero_audio = sys.argv[3]
-        serv = socketserver.UDPServer((IP, Port_serv), EchoHandler)
-        print("Listening")
-        serv.serve_forever()
+        if os.path.exists(fichero_audio):
+            serv = socketserver.UDPServer((IP, Port_serv), EchoHandler)
+            print("Listening")
+            serv.serve_forever()
+        else:
+            sys.exit("Usage: python server.py IP port audio_file")
     else:
         sys.exit("Usage: python server.py IP port audio_file")
