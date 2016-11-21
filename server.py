@@ -17,7 +17,7 @@ class EchoHandler(socketserver.DatagramRequestHandler):
     def handle(self):
         while 1:
             # Leyendo línea a línea lo que nos envía el cliente
-            line = self.rfile.read()      
+            line = self.rfile.read()
             Peticion_SIP = line.decode('utf-8')
             print("El cliente nos manda " + Peticion_SIP)
             if not Peticion_SIP:
