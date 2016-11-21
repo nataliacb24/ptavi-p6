@@ -24,19 +24,19 @@ class EchoHandler(socketserver.DatagramRequestHandler):
                 break
             (metodo, address, sip) = Peticion_SIP.split()
             if metodo not in ["INVITE", "BYE", "ACK"]:
-                self.wfile.write(b"SIP/2.0 405 Method Not Allowed" +  b"\r\n")
+                self.wfile.write(b"SIP/2.0 405 Method Not Allowed" + b"\r\n")
             elif metodo == "INVITE":
-                self.wfile.write(b"SIP/2.0 100 Trying" +  b"\r\n")
-                self.wfile.write(b"SIP/2.0 180 Ring" +  b"\r\n")
-                self.wfile.write(b"SIP/2.0 200 OK" +  b"\r\n")
+                self.wfile.write(b"SIP/2.0 100 Trying" + b"\r\n")
+                self.wfile.write(b"SIP/2.0 180 Ring" + b"\r\n")
+                self.wfile.write(b"SIP/2.0 200 OK" + b"\r\n")
             elif metodo == "ACK":
                 aEjecutar = "mp32rtp -i " + IP + " -p 23032 < " + fichero_audio
                 print("Vamos a ejecutar", aEjecutar)
                 os.system(aEjecutar)
             elif metodo == "BYE":
-                self.wfile.write(b"SIP/2.0 200 OK" +  b"\r\n")
+                self.wfile.write(b"SIP/2.0 200 OK" + b"\r\n")
             else:
-                self.wfile.write(b"SIP/2.0 400 Bad Request" +  b"\r\n")
+                self.wfile.write(b"SIP/2.0 400 Bad Request" + b"\r\n")
 
 
 if __name__ == "__main__":
