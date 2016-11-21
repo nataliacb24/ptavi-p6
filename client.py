@@ -16,7 +16,7 @@ if len(sys.argv) == 3:
         port = int(port)
         (name, IP) = receptor.split('@')
     except ValueError:
-         sys.exit("Usage: python client.py method receiver@IP:SIPport")
+        sys.exit("Usage: python client.py method receiver@IP:SIPport")
 else:
     sys.exit("Usage: python client.py method receiver@IP:SIPport")
 
